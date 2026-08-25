@@ -1,25 +1,27 @@
 import { AlertCircle, ImageIcon } from "lucide-react";
 import type { UploadStatus } from "../types";
 import { useDropzone } from "react-dropzone";
-import { useState } from "react";
-import { UploadWidget, type CloudinaryUploadResult } from "../cloudinary/UploadWidget";
-import { uploadImageToCloudinary } from "../cloudinary/upload-direct";
 import { cn } from "../lib/utils";
+import { useState } from "react";
+import { uploadImageToCloudinary } from "../cloudinary/upload-direct";
+import {
+    UploadWidget,
+    type CloudinaryUploadResult,
+} from "../cloudinary/UploadWidget";
 
-const ACCEPTED = {
-    'image/jpeg': ['.jpeg'],
-    'image/png': ['.png'],
-    'image/webp': ['.webp'],
-}
+const ACCEPT = {
+    "image/jpeg": [".jpg", ".jpeg"],
+    "image/png": [".png"],
+    "image/webp": [".webp"],
+};
 
 interface UploadCardProps {
     uploadStatus: UploadStatus;
     uploadError: string | null;
-    onUploadStart: () => void;
     onUploadError: (error: Error) => void;
+    onUploadStart: () => void;
     onUploadSuccess: (result: CloudinaryUploadResult) => void;
 }
-
 export default function UploadCard({
     uploadStatus,
     uploadError,
@@ -48,9 +50,9 @@ export default function UploadCard({
         uploadFile(acceptedFiles[0]);
     };
 
-    const { getRootProps, getInputProps, isDragActive, open } = useDropzone({
+    const { getRootProps, getInputProps, isDragActive } = useDropzone({
         onDrop,
-        accept: ACCEPTED,
+        accept: ACCEPT,
         maxFiles: 1,
         multiple: false,
         disabled: uploadStatus === "uploading",

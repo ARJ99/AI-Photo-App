@@ -1,9 +1,8 @@
-import type { CloudinaryImage } from "@cloudinary/url-gen/index";
+import type { CloudinaryImage } from "@cloudinary/url-gen/assets/CloudinaryImage";
 import type { HeadshotPreset } from "../types";
 import { AdvancedImage, lazyload, placeholder } from "@cloudinary/react";
+import { cn } from "../lib/utils";
 import { Check } from "lucide-react";
-import { cn } from "../lib/utils";
-import { cn } from "../lib/utils";
 
 interface PresetImage {
     preset: HeadshotPreset;
@@ -11,12 +10,11 @@ interface PresetImage {
 }
 
 interface TransformationGridProps {
-    title: string,
-    presets: PresetImage[],
-    selectedPresetId?: string | null,
-    onSelect: (id: string) => void
+    title: string;
+    presets: PresetImage[];
+    selectedPresetId: string | null;
+    onSelect: (id: string) => void;
 }
-
 
 function PresetCard({
     preset,
@@ -59,8 +57,12 @@ function PresetCard({
     );
 }
 
-
-export default function TransformationGrid({ title, presets, onSelect, selectedPresetId }: TransformationGridProps) {
+export default function TransformationGrid({
+    title,
+    presets,
+    onSelect,
+    selectedPresetId,
+}: TransformationGridProps) {
     if (presets.length === 0) return null;
 
     return (
@@ -76,7 +78,6 @@ export default function TransformationGrid({ title, presets, onSelect, selectedP
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                     {presets.map(({ preset, image }) => (
                         <PresetCard
-                            key={preset.id}
                             preset={preset}
                             image={image}
                             isSelected={selectedPresetId === preset.id}
@@ -86,5 +87,5 @@ export default function TransformationGrid({ title, presets, onSelect, selectedP
                 </div>
             </div>
         </section>
-    )
+    );
 }

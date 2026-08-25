@@ -1,6 +1,6 @@
 import { AdvancedImage, lazyload, placeholder } from "@cloudinary/react";
 import { Hero } from "../components/Hero";
-import { UploadCard } from "../components/UploadCard";
+import UploadCard from "../components/UploadCard";
 import { useHeadshot } from "../Hooks/use-headshot";
 import TransformationGrid from "../components/TransformationGrid";
 import ResultPreview from "../components/ResultPreview";
