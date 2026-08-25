@@ -1,6 +1,9 @@
 import type { CloudinaryImage } from "@cloudinary/url-gen/index";
 import type { HeadshotPreset } from "../types";
 import { AdvancedImage, lazyload, placeholder } from "@cloudinary/react";
+import { Check } from "lucide-react";
+import { cn } from "../lib/utils";
+import { cn } from "../lib/utils";
 
 interface PresetImage {
     preset: HeadshotPreset;
@@ -15,19 +18,45 @@ interface TransformationGridProps {
 }
 
 
-function PresetCard({ preset, image, isSelected, onSelect }: { preset: HeadshotPreset, image: CloudinaryImage, isSelected: boolean, onSelect: () => void }) {
+function PresetCard({
+    preset,
+    image,
+    isSelected,
+    onSelect,
+}: {
+    preset: HeadshotPreset;
+    image: CloudinaryImage;
+    isSelected: boolean;
+    onSelect: () => void;
+}) {
     return (
-        <button onClick={onSelect}>
-            <div className="relative aspect-4/5 w-full overflow-hidden bg-black/30">
+        <button onClick={onSelect} type="button">
+            <div
+                className={cn(
+                    "relative aspect-[4/5] w-full overflow-hidden bg-black/30 border-1 rounded-xl",
+                    isSelected ? "border-indigo-500" : "border-transparent",
+                )}
+            >
                 <AdvancedImage
                     cldImg={image}
-                    plugins={[placeholder({ mode: 'blur' }), lazyload()]}
+                    plugins={[placeholder({ mode: "blur" }), lazyload()]}
                     alt="Original Upload"
                     className="mx-auto rounded-xl shadow-lg"
                 />
+
+                {isSelected && (
+                    <div className="absolute right-2 top-2 rounded-full bg-indigo-600 p-1">
+                        <Check className="h-4 w-4 text-white" />
+                    </div>
+                )}
+            </div>
+
+            <div className="p-4">
+                <h4 className="font-semibold">{preset.name}</h4>
+                <p className="mt-1 text-xs text-white/50">{preset.description}</p>
             </div>
         </button>
-    )
+    );
 }
 
 
